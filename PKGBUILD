@@ -7,8 +7,8 @@ arch=('aarch64')
 pkgdesc="RKNN LLM API runtime"
 url="https://github.com/Pelochus/ezrknn-llm/"
 license=('custom')
-source=(git+https://github.com/Pelochus/ezrknn-llm)
-sha256sums=('SKIP')
+source=(git+https://github.com/Pelochus/ezrknn-llm "LICENSE")
+sha256sums=('SKIP' 'SKIP')
 
 pkgver() {
     cd "$srcdir/ezrknn-llm"
@@ -24,7 +24,8 @@ build() {
 
 package() {
     cd "$srcdir/ezrknn-llm"
-    mkdir -p "$pkgdir/usr/lib/" "$pkgdir/usr/local/include"
+    mkdir -p "$pkgdir/usr/lib/" "$pkgdir/usr/local/include" "$pkgdir/usr/share/licenses/$pkgname"
     install -Dm644 rkllm-runtime/runtime/Linux/librkllm_api/aarch64/* "$pkgdir/usr/lib/"
     install -Dm644 rkllm-runtime/runtime/Linux/librkllm_api/include/* "$pkgdir/usr/local/include/"
+    install -Dm644 "$srcdir/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
